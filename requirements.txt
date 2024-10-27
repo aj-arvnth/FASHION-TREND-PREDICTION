@@ -1,6 +1,6 @@
 Flask==2.3.3
-pandas==2.1.1
-numpy>=1.25  # Allow flexibility for the latest compatible version
+pandas==2.0.3   # Compatible with recent numpy and Python 3.11
+numpy==1.24.3   # Compatible with pandas==2.0.3
 
 # Flask supporting packages
 Flask-Session==0.4.0
