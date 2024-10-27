@@ -345,70 +345,41 @@ def returnProdDatacurrenttrends3():
     
     
 @app.route('/futuretrends', methods=['GET'])
+# @app.route('/futuretrends', methods=['GET'])
 def api_futuretrends():
-    
-    if 'tshirts' in request.args:
-#        Insert code here/ information to retrieve
-        top1_name=[]
-        top1_description=[]
-        for i in range(0,10):
-            top1_name.append("name"+str(i+1))
-            top1_description.append("description"+str(i+1))
-        imagestshirts = glob.glob('static/img/tshirt_images/generated' + '*.png')
-        imgs_id=random.sample(range(0, len(imagestshirts)), 8)
-        images_path=[]
-        for i in range(0,len(imgs_id)):
-            images_path.append(imagestshirts[imgs_id[i]])
-            
+    top1_name = []
+    top1_description = []
 
-        imagestshirts2 = glob.glob('static/img/content/outputs/output_shirt-' + '*.*')
-        images_path_insp=[]
-        for i in range(0,len(imagestshirts2)):
-            images_path_insp.append(imagestshirts2[i])
-#        print(images_path)
-        return render_template("website_futuretrends.html",images_path_insp=images_path_insp,images_path=images_path,top1_name=top1_name,top1_description=top1_description)
-    
-    if 'dresses' in request.args:
-#        Insert code here/ information to retrieve
-        top1_name=[]
-        top1_description=[]
-        for i in range(0,10):
-            top1_name.append("name"+str(i+1))
-            top1_description.append("description"+str(i+1))
-        imagesdresses = glob.glob('static/img/dress_images/generated' + '*.png')
-        imgs_id=random.sample(range(0, len(imagesdresses)), 8)
-        images_path=[]
-        for i in range(0,len(imgs_id)):
-            images_path.append(imagesdresses[imgs_id[i]])
-            
-        imagestshirts2 = glob.glob('static/img/content/outputs/output_dress-' + '*.*')
-        images_path_insp=[]
-        for i in range(0,len(imagestshirts2)):
-            images_path_insp.append(imagestshirts2[i])
-#        print(images_path)
-        return render_template("website_futuretrends.html",images_path_insp=images_path_insp,images_path=images_path,top1_name=top1_name,top1_description=top1_description)
-    
-    if 'skirts' in request.args:
-#        Insert code here/ information to retrieve
-        top1_name=[]
-        top1_description=[]
-        for i in range(0,10):
-            top1_name.append("name"+str(i+1))
-            top1_description.append("description"+str(i+1))
-        imagesskirts = glob.glob('static/img/skirt_images/generated' + '*.png')
-        imgs_id=random.sample(range(0, len(imagesskirts)), 8)
-        images_path=[]
-        for i in range(0,len(imgs_id)):
-            images_path.append(imagesskirts[imgs_id[i]])
-            
-        imagestshirts2 = glob.glob('static/img/content/outputs/output_skirt-' + '*.*')
-        images_path_insp=[]
-        for i in range(0,len(imagestshirts2)):
-            images_path_insp.append(imagestshirts2[i])
-#        print(images_path)
-        return render_template("website_futuretrends.html",images_path_insp=images_path_insp,images_path=images_path,top1_name=top1_name,top1_description=top1_description)
-    
-    
+    # Dummy data for product names and descriptions
+    for i in range(10):
+        top1_name.append("name" + str(i + 1))
+        top1_description.append("description" + str(i + 1))
+
+    # Check for specific product category
+    if 'tshirts' in request.args:
+        image_files = glob.glob('static/img/tshirt_images/generated*.png')
+        insp_files = glob.glob('static/img/content/outputs/output_shirt-*.*')
+    elif 'dresses' in request.args:
+        image_files = glob.glob('static/img/dress_images/dress/generated*.png')
+        insp_files = glob.glob('static/img/content/outputs/output_dress-*.*')
+    elif 'skirts' in request.args:
+        image_files = glob.glob('static/img/skirt_images/skirt/generated*.png')
+        insp_files = glob.glob('static/img/content/outputs/output_skirt-*.*')
+    else:
+        image_files, insp_files = [], []
+
+    # Randomly select images for display
+    img_ids = random.sample(range(len(image_files)), min(len(image_files), 28))
+    images_path = [image_files[i] for i in img_ids]
+    images_path_insp = insp_files
+
+    return render_template(
+        "website_futuretrends.html",
+        images_path=images_path,
+        images_path_insp=images_path_insp,
+        top1_name=top1_name,
+        top1_description=top1_description
+    )
     
         
 @app.route('/home', methods=['GET'])
@@ -417,21 +388,21 @@ def api_homepage():
 
 
 
-# @app.route('/aboutus', methods=['GET'])
-# def api_aboutus():
-#     return render_template("website_aboutus.html")
+@app.route('/aboutus', methods=['GET'])
+def api_aboutus():
+    return render_template("website_aboutus.html")
 
 
 
-# @app.route('/downloadcode', methods=['GET'])
-# def api_downloadcode():
-#     return render_template("website_downloadcode.html")
+@app.route('/downloadcode', methods=['GET'])
+def api_downloadcode():
+    return render_template("website_downloadcode.html")
 
 
 
-# @app.route('/contactus', methods=['GET'])
-# def api_contactus():
-#     return render_template("website_contactus.html")
+@app.route('/contactus', methods=['GET'])
+def api_contactus():
+    return render_template("website_contactus.html")
 
 
 
